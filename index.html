@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>markdown-editor</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="./index.css" />
+        <link href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/github.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="menu">
+            Choose download file type :
+            <select v-model="selected">
+                <option v-for="option in options" v-bind:value="option.value">
+                    {{ option.text }}
+                </option>
+            </select>
+            <button @click="onDownload(selected)">Download</button>
+            <button @click="onChangeMode" v-bind:class="'change-mode-button'">{{mode}}</button>
+        </div>
+        <div id="editor">
+            <textarea v-show="editMode" v-model="input" debounce="100"></textarea>
+            <div 
+                v-bind:class="['preview', editMode ? 'edit-preview': 'show-preview']" 
+                v-html="input | marked">
+            </div>
+        </div>
+    </body>
+    <script src="http://cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
+    <script src="http://cdn.bootcss.com/marked/0.3.5/marked.js"></script>
+    <script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+    <script src="http://danml.com/js/download2.js"></script>
+    <script src="./index.js"></script>
+</html>
